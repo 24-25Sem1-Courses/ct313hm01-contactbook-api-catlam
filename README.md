@@ -6,9 +6,8 @@ Course: CT313H-Web Technologies and Services.
 
 Semester 1, Academic year: 2024-2025.
 
-**Student ID**: ...
+**Student ID**: Le Cat Lam
 
-**Student Name**: ...
+**Student Name**: B2111988
 
-**Class Number**: ...
-
+**Class Number**: M01
