@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/24-25Sem1-Courses/ct313hm01-contactbook-api-catlam/issues"
   },
-  "homepage": "https://github.com/24-25Sem1-Courses/ct313hm01-contactbook-api-catlam#readme"
+  "homepage": "https://github.com/24-25Sem1-Courses/ct313hm01-contactbook-api-catlam#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.35.2",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  }
 }
