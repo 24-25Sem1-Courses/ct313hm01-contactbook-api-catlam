@@ -1,4 +1,3 @@
-/*global exports require */
 const { faker } = require('@faker-js/faker');
 function createContact() {
   return {
