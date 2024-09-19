@@ -2,6 +2,7 @@
 const express = require('express');
 const contactsController = require('../controllers/contacts.controller');
 const { methodNotAllowed } = require('../controllers/errors.controller');
+const avatarUpload = require('../middlewares/avatar-upload.middleware');
 
 const router = express.Router();
 
@@ -24,7 +25,9 @@ module.exports.setup = (app) => {
      *        name: favorite
      *        schema:
      *          type: string 
-     *        description: Get contacts contact name
+     *        description: Filter by contact name
+     *      - $ref: '#/components/parameters/limitParam'
+     *      - $ref: '#/components/parameters/pageParam'
      *    tags:
      *      - contacts
      *    responses:
@@ -46,10 +49,45 @@ module.exports.setup = (app) => {
      *                      type: array
      *                      items:
      *                        $ref: '#/components/schemas/Contact'
+     *                    metadata:
+     *                      $ref: '#/components/schemas/PaginationMetadata'
     */
 
     router.get('/', contactsController.getContactsByFilter);
-    router.post('/', contactsController.createContact);
+
+    /**
+     * @swagger
+     * /api/v1/contacts:
+     *  post:
+     *    summary: Create a new contact
+     *    description: Create a new contact
+     *    requestBody:
+     *      required: true
+     *      content:
+     *        multipart/form-data:
+     *          schema:
+     *            $ref: '#/components/schemas/Contact'
+     *    tags:
+     *      - contacts
+     *    responses:
+     *      201:
+     *        description: A new contacts
+     *        content:
+     *          application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                status:
+     *                  type: string
+     *                  description: The response status
+     *                  enum: [success]
+     *                data:
+     *                  type: object
+     *                  properties:
+     *                    contacts:
+     *                       $ref: '#/components/schemas/Contact'
+    */
+    router.post('/', avatarUpload, contactsController.createContact);
 
     /**
      * @swagger
@@ -95,6 +133,7 @@ module.exports.setup = (app) => {
      *                    contacts:
      *                      $ref: '#/components/schemas/Contact'
     */
+
     router.get('/:id', contactsController.getContact);
 
     /**
@@ -131,7 +170,7 @@ module.exports.setup = (app) => {
      *                    contacts:
      *                      $ref: '#/components/schemas/Contact'
     */
-    router.put('/:id', contactsController.updateContact);
+    router.put('/:id', avatarUpload, contactsController.updateContact);
 
     /**
      * @swagger
@@ -140,7 +179,7 @@ module.exports.setup = (app) => {
      *     summary: Delete contact by ID
      *     description: Delete contact by ID
      *     parameters:
-     *       - $ref: '#/components/parameters/ContactIdParam'
+     *       - $ref: '#/components/parameters/contactIdParam'
      *     tags:
      *       - contacts
      *     responses:
