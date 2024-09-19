@@ -12,19 +12,19 @@ const storage = multer.diskStorage({
     },
 });
 
-function avatarUpload(req, res, next){
+function avatarUpload(req, res, next) {
     const upload = multer({ storage: storage }).single('avatarFile');
 
-    upload(req, res, function (err,) {
+    upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return next(
-                new ApiError(400, 'An error occurred while uploading the avtar')
+                new ApiError(400, 'An error occurred while uploading the avatar')
             );
         } else if (err) {
             return next(
                 new ApiError(
-                    500, 
-                    'An unknown error occurred while uploading the avtar'
+                    500,
+                    'An unknown error occurred while uploading the avatar'
                 )
             );
         }
